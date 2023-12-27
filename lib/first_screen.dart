@@ -12,7 +12,6 @@ class FirstScreen extends StatelessWidget {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          // Apply the gradient to the Container's decoration
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             colors: [
@@ -32,8 +31,9 @@ class FirstScreen extends StatelessWidget {
                 width: 116,
                 height: 116,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    color: const Color.fromARGB(255, 235, 235, 235)),
+                  borderRadius: BorderRadius.circular(100),
+                  color: const Color.fromARGB(150, 235, 235, 235),
+                ),
                 child: const Icon(
                   Icons.person_add_alt_1,
                   color: Colors.white,
