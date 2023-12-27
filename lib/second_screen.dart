@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:suit_media1/third_screen.dart';
 
-class SecondScreen extends StatelessWidget {
-  const SecondScreen({super.key});
+class SecondScreen extends StatefulWidget {
+  final String userName;
+  const SecondScreen({required this.userName,super.key});
 
+  @override
+  State<SecondScreen> createState() => _SecondScreenState();
+}
+
+class _SecondScreenState extends State<SecondScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,9 +40,9 @@ class SecondScreen extends StatelessWidget {
               "Welcome",
               style: TextStyle(color: Colors.grey, fontSize: 12),
             ),
-            const Text(
-              "John Doe",
-              style: TextStyle(
+            Text(
+              widget.userName,
+              style: const TextStyle(
                   fontWeight: FontWeight.w500,
                   color: Colors.black,
                   fontSize: 18),

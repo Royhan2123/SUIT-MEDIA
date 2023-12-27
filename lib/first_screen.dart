@@ -2,13 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:suit_media1/second_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class FirstScreen extends StatelessWidget {
+class FirstScreen extends StatefulWidget {
   const FirstScreen({super.key});
 
   @override
+  State<FirstScreen> createState() => _FirstScreenState();
+}
+
+class _FirstScreenState extends State<FirstScreen> {
+  final TextEditingController txtName = TextEditingController(text: "");
+  final TextEditingController txtPalindrome = TextEditingController(text: "");
+  bool isPalindrome = false;
+
+  @override
   Widget build(BuildContext context) {
-    final TextEditingController txtName = TextEditingController(text: "");
-    final TextEditingController txtPalindrome = TextEditingController(text: "");
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -90,7 +97,26 @@ class FirstScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    isPalindrome = checkPalindrome(txtPalindrome.text);
+                  });
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text("isPalindrome"),
+                      content: Text(isPalindrome ? "Palindrome" : "Not Palindrome"),
+                      actions: [
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text("OK"),
+                        ),
+                      ],
+                    ),
+                  );
+                },
                 child: Text(
                   "CHECK",
                   style: GoogleFonts.poppins(color: Colors.white),
@@ -110,10 +136,12 @@ class FirstScreen extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
+                  String userName = txtName.text;
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const SecondScreen(),
+                      builder: (context) => SecondScreen(userName: userName),
                     ),
                   );
                 },
@@ -127,5 +155,11 @@ class FirstScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  bool checkPalindrome(String text) {
+    String cleanedText = text.replaceAll(" ", "").toLowerCase();
+    String reversedText = cleanedText.split('').reversed.join('');
+    return cleanedText == reversedText;
   }
 }
