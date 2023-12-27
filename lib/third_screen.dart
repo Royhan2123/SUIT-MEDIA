@@ -1,19 +1,20 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:suit_media1/user_models.dart';
 import 'package:suit_media1/second_screen.dart';
+import 'package:suit_media1/user_models.dart';
 
 class ThirdScreen extends StatefulWidget {
-  const ThirdScreen({Key? key}) : super(key: key);
+  const ThirdScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<ThirdScreen> createState() => _ThirdScreenState();
 }
 
 class _ThirdScreenState extends State<ThirdScreen> {
-  final String apiUrl = "https://reqres.in/api/users?per_page=15";
+  final String baseUrl = "https://reqres.in/api/users?per_page=15";
   late List<UserModels> users;
   int page = 1;
   bool isLoading = false;
@@ -32,7 +33,9 @@ class _ThirdScreenState extends State<ThirdScreen> {
       isLoading = true;
     });
 
-    final response = await http.get(Uri.parse('$apiUrl?page=$page&per_page=15'));
+    final response = await http.get(
+      Uri.parse('$baseUrl&page=$page&per_page=15'),
+    );
 
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body)['data'];
@@ -86,22 +89,20 @@ class _ThirdScreenState extends State<ThirdScreen> {
               )
             : ListView.builder(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                itemCount: users.length + 1, // Add one for the loading indicator
+                itemCount: users.length + 1,
                 itemBuilder: (context, index) {
                   if (index == users.length) {
-                    // Show loading indicator at the end of the list
                     return _buildLoadingIndicator();
                   } else {
                     final user = users[index];
                     return ListTile(
                       onTap: () {
-                        // Update selected user name in SecondScreen
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => SecondScreen(
-                              userName: '${user.firstName} ${user.lastName}',
-                            ),
+                                selectedUsername:
+                                    "${user.firstName}${user.lastName}",),
                           ),
                         );
                       },

@@ -126,30 +126,32 @@ class _FirstScreenState extends State<FirstScreen> {
                 height: 15,
               ),
               ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(310, 41),
-                  backgroundColor: const Color.fromARGB(255, 34, 78, 97),
-                  foregroundColor: Colors.lightBlue,
-                  shadowColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                onPressed: () {
-                  String userName = txtName.text;
-
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SecondScreen(userName: userName),
-                    ),
-                  );
-                },
-                child: Text(
-                  "NEXT",
-                  style: GoogleFonts.poppins(color: Colors.white),
-                ),
-              ),
+  style: ElevatedButton.styleFrom(
+    minimumSize: const Size(310, 41),
+    backgroundColor: const Color.fromARGB(255, 34, 78, 97),
+    foregroundColor: Colors.lightBlue,
+    shadowColor: Colors.black,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12),
+    ),
+  ),
+  onPressed: () {
+    String userName = txtName.text;
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SecondScreen(
+          userName: userName,
+          selectedUsername: "",
+        ),
+      ),
+    );
+  },
+  child: Text(
+    "NEXT",
+    style: GoogleFonts.poppins(color: Colors.white),
+  ),
+),
             ],
           ),
         ),
